@@ -81,6 +81,6 @@ npx vercel login
 5. Репозиторий на Vercel, два публичных env, `vercel --prod`
 6. Проверка: Camry → заказ → админка видит `LDR-…`
 
-Сейчас витрина: [https://lider-red.vercel.app](https://lider-red.vercel.app). Учебные аккаунты те же. Фото в облако: `npm run seed:photos:cloud` (сотрудник + публичный ключ проекта, не `service_role`).
+Сейчас витрина: [https://lider-red.vercel.app](https://lider-red.vercel.app). Учебные аккаунты те же. Фото в облако: `npm run seed:photos:cloud` — команда сама читает `.env.local` (сотрудник + публичный ключ проекта, не `service_role`).
 
 Локальный `npm run seed:demo` по-прежнему ходит только в Docker `127.0.0.1:54321` и облако не трогает.

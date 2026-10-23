@@ -3,7 +3,6 @@ import { CatalogFilters } from "@/components/catalog-filters";
 import { CatalogPagination } from "@/components/catalog-pagination";
 import { ProductCard } from "@/components/product-card";
 import {
-  catalogFilterOptions,
   catalogHasFilters,
   parseCatalogFilters,
   parseCatalogPage,
@@ -22,16 +21,14 @@ async function CatalogContent({
     listPublicVehicles(),
     listPublicProducts(selected, page),
   ]);
-  const options = catalogFilterOptions(vehicles, selected);
   const hasFilters = catalogHasFilters(selected);
 
   return (
     <>
       <CatalogFilters
-        makes={options.makes}
-        models={options.models}
+        key={`${selected.make}|${selected.model}|${selected.year ?? ""}|${selected.query}`}
         selected={selected}
-        years={options.years}
+        vehicles={vehicles}
       />
       {error ? (
         <p className="mt-10 text-sm text-red-600" role="alert">

@@ -5,6 +5,13 @@ export type CatalogFilters = {
   query: string;
 };
 
+export type CatalogVehicleOption = {
+  make: string;
+  model: string;
+  yearFrom: number | null;
+  yearTo: number | null;
+};
+
 export const CATALOG_PAGE_SIZE = 12;
 
 export function catalogHasFilters(filters: CatalogFilters) {
@@ -81,12 +88,7 @@ export function escapeIlike(value: string) {
 }
 
 export function catalogFilterOptions(
-  vehicles: Array<{
-    make: string;
-    model: string;
-    yearFrom: number | null;
-    yearTo: number | null;
-  }>,
+  vehicles: CatalogVehicleOption[],
   selected: Pick<CatalogFilters, "make" | "model">,
 ) {
   const makes = [...new Set(vehicles.map((vehicle) => vehicle.make))].sort((left, right) =>

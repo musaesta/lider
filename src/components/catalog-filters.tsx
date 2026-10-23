@@ -2,33 +2,32 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { catalogSearchHref, type CatalogFilters } from "@/lib/catalog/filters";
+import { useMemo, useState } from "react";
+import {
+  catalogFilterOptions,
+  catalogSearchHref,
+  type CatalogFilters,
+  type CatalogVehicleOption,
+} from "@/lib/catalog/filters";
 
 const fieldClass =
   "rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4";
 
 export function CatalogFilters({
-  makes,
-  models,
-  years,
+  vehicles,
   selected,
 }: {
-  makes: string[];
-  models: string[];
-  years: number[];
+  vehicles: CatalogVehicleOption[];
   selected: CatalogFilters;
 }) {
   const router = useRouter();
-
-  function goTo(next: Partial<CatalogFilters> & { resetModel?: boolean; resetYear?: boolean }) {
-    const filters: CatalogFilters = {
-      make: next.make ?? selected.make,
-      model: next.resetModel ? "" : (next.model ?? selected.model),
-      year: next.resetYear ? null : (next.year === undefined ? selected.year : next.year),
-      query: next.query ?? selected.query,
-    };
-    router.push(catalogSearchHref(filters));
-  }
+  const [make, setMake] = useState(selected.make);
+  const [model, setModel] = useState(selected.model);
+  const [year, setYear] = useState(selected.year ? String(selected.year) : "");
+  const options = useMemo(
+    () => catalogFilterOptions(vehicles, { make, model }),
+    [vehicles, make, model],
+  );
 
   return (
     <form
@@ -38,29 +37,32 @@ export function CatalogFilters({
       onSubmit={(event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
-        goTo({
-          make: String(form.get("make") ?? "").trim(),
-          model: String(form.get("model") ?? "").trim(),
-          year: Number(form.get("year")) || null,
-          query: String(form.get("q") ?? "").trim(),
-        });
+        router.push(
+          catalogSearchHref({
+            make: String(form.get("make") ?? "").trim(),
+            model: String(form.get("model") ?? "").trim(),
+            year: Number(form.get("year")) || null,
+            query: String(form.get("q") ?? "").trim(),
+          }),
+        );
       }}
     >
       <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
         Марка
         <select
           className={fieldClass}
-          defaultValue={selected.make}
-          key={`make-${selected.make}`}
           name="make"
           onChange={(event) => {
-            goTo({ make: event.target.value, resetModel: true, resetYear: true });
+            setMake(event.target.value);
+            setModel("");
+            setYear("");
           }}
+          value={make}
         >
           <option value="">Все марки</option>
-          {makes.map((make) => (
-            <option key={make} value={make}>
-              {make}
+          {options.makes.map((item) => (
+            <option key={item} value={item}>
+              {item}
             </option>
           ))}
         </select>
@@ -69,18 +71,18 @@ export function CatalogFilters({
         Модель
         <select
           className={fieldClass}
-          defaultValue={selected.model}
-          disabled={!selected.make}
-          key={`model-${selected.make}-${selected.model}`}
+          disabled={!make}
           name="model"
           onChange={(event) => {
-            goTo({ model: event.target.value, resetYear: true });
+            setModel(event.target.value);
+            setYear("");
           }}
+          value={model}
         >
           <option value="">Все модели</option>
-          {models.map((model) => (
-            <option key={model} value={model}>
-              {model}
+          {options.models.map((item) => (
+            <option key={item} value={item}>
+              {item}
             </option>
           ))}
         </select>
@@ -89,18 +91,17 @@ export function CatalogFilters({
         Год
         <select
           className={fieldClass}
-          defaultValue={selected.year ?? ""}
-          disabled={!selected.make}
-          key={`year-${selected.make}-${selected.model}-${selected.year ?? ""}`}
+          disabled={!make}
           name="year"
           onChange={(event) => {
-            goTo({ year: Number(event.target.value) || null });
+            setYear(event.target.value);
           }}
+          value={year}
         >
           <option value="">Любой</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
+          {options.years.map((item) => (
+            <option key={item} value={item}>
+              {item}
             </option>
           ))}
         </select>
@@ -125,6 +126,7 @@ export function CatalogFilters({
         <Link
           className="rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-900"
           href="/catalog"
+          prefetch={false}
         >
           Сброс
         </Link>

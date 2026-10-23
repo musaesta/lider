@@ -33,6 +33,7 @@ export function CatalogPagination({
             <Link
               className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
               href={catalogSearchHref(filters, page - 1)}
+              prefetch={false}
             >
               Назад
             </Link>
@@ -48,6 +49,7 @@ export function CatalogPagination({
             <Link
               className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
               href={catalogSearchHref(filters, page + 1)}
+              prefetch={false}
             >
               Дальше
             </Link>

@@ -1,27 +1,45 @@
 import type { NextConfig } from "next";
 
-function supabaseImagePattern() {
+function supabaseImageHost() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
 
   if (!url) {
-    return [];
+    return null;
   }
 
   try {
-    const parsed = new URL(url);
-    const protocol = parsed.protocol === "https:" ? "https" : "http";
-
-    return [
-      {
-        protocol,
-        hostname: parsed.hostname,
-        ...(parsed.port ? { port: parsed.port } : {}),
-        pathname: "/storage/v1/object/public/**",
-      } as const,
-    ];
+    return new URL(url);
   } catch {
+    return null;
+  }
+}
+
+function isLocalSupabaseHost(parsed: URL | null) {
+  if (!parsed) {
+    return false;
+  }
+
+  const host = parsed.hostname.toLowerCase();
+  return host === "127.0.0.1" || host === "localhost";
+}
+
+function supabaseImagePattern() {
+  const parsed = supabaseImageHost();
+
+  if (!parsed) {
     return [];
   }
+
+  const protocol = parsed.protocol === "https:" ? "https" : "http";
+
+  return [
+    {
+      protocol,
+      hostname: parsed.hostname,
+      ...(parsed.port ? { port: parsed.port } : {}),
+      pathname: "/storage/v1/object/public/**",
+    } as const,
+  ];
 }
 
 const nextConfig: NextConfig = {
@@ -29,6 +47,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
+    qualities: [75],
+    minimumCacheTTL: 86400,
+    dangerouslyAllowLocalIP: isLocalSupabaseHost(supabaseImageHost()),
     remotePatterns: [
       {
         protocol: "http",

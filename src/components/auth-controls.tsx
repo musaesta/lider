@@ -11,12 +11,14 @@ export async function AuthControls() {
         <Link
           className="rounded-full px-3 py-1.5 font-medium text-slate-600 hover:bg-slate-100"
           href="/login"
+          prefetch={false}
         >
           Войти
         </Link>
         <Link
           className="rounded-full bg-slate-950 px-3 py-1.5 font-medium text-white"
           href="/register"
+          prefetch={false}
         >
           Регистрация
         </Link>
@@ -29,6 +31,7 @@ export async function AuthControls() {
       <Link
         className="hidden rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:inline"
         href="/account/addresses"
+        prefetch={false}
       >
         Адреса
       </Link>

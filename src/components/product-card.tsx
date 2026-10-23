@@ -8,6 +8,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
     <Link
       className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-900/5 transition hover:border-orange-200 hover:shadow-md"
       href={`/catalog/${product.slug}`}
+      prefetch={false}
     >
       <ProductPhoto alt={product.imageAlt} src={product.imageUrl} />
       <div className="flex flex-1 flex-col p-5">

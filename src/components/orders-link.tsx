@@ -15,6 +15,7 @@ export async function OrdersLink() {
     <Link
       className="rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100"
       href={staff ? "/admin/orders" : "/orders"}
+      prefetch={false}
     >
       Заказы
     </Link>

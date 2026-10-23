@@ -1,16 +1,22 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { assertCloudApiUrl } from "./cloud-supabase.mjs";
+import { assertCloudApiUrl, loadLocalEnvFile } from "./cloud-supabase.mjs";
 
 const root = resolve(import.meta.dirname, "..");
+
+loadLocalEnvFile();
 
 if (process.env.LIDER_SEED_CLOUD !== "yes") {
   throw new Error("Облачные фото только с LIDER_SEED_CLOUD=yes.");
 }
 
 const url = assertCloudApiUrl(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "");
-const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim();
+const publishableKey = (
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+  ""
+).trim();
 
 if (!publishableKey) {
   throw new Error("Нужен NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY облачного проекта.");

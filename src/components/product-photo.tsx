@@ -21,11 +21,12 @@ export function ProductPhoto({
         <Image
           alt={alt}
           className="object-cover"
+          fetchPriority={priority ? "high" : "auto"}
           fill
-          priority={priority}
+          loading={priority ? "eager" : "lazy"}
+          quality={75}
           sizes={sizes}
           src={src}
-          unoptimized
         />
       ) : (
         <div

@@ -18,12 +18,7 @@ async function HomeSearch() {
           {error}
         </p>
       ) : (
-        <CatalogFilters
-          makes={options.makes}
-          models={options.models}
-          selected={emptyFilters}
-          years={options.years}
-        />
+        <CatalogFilters selected={emptyFilters} vehicles={vehicles} />
       )}
       {makes.length > 0 ? (
         <div className="mt-6">
@@ -36,6 +31,7 @@ async function HomeSearch() {
                 <Link
                   className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:border-orange-200 hover:text-slate-950"
                   href={`/catalog?make=${encodeURIComponent(make)}`}
+                  prefetch={false}
                 >
                   {make}
                 </Link>

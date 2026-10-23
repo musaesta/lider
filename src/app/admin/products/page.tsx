@@ -113,6 +113,7 @@ async function AdminProductsContent({
               <Link
                 className="block rounded-2xl border border-slate-200/80 bg-white p-4 hover:border-slate-300"
                 href={`/admin/products/${product.id}`}
+                prefetch={false}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="font-semibold text-slate-950">{product.name}</p>

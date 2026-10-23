@@ -16,6 +16,7 @@ export function AdminNav() {
           className="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
           href={link.href}
           key={link.href}
+          prefetch={false}
         >
           {link.label}
         </Link>
