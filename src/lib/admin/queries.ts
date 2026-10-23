@@ -1,6 +1,12 @@
 import { connection } from "next/server";
-import { productImagePublicUrl } from "@/lib/catalog/image-url";
+import {
+  ADMIN_PRODUCT_PAGE_SIZE,
+  sanitizeAdminProductQuery,
+  type AdminProductFilters,
+} from "@/lib/admin/product-filters";
 import { getStaffViewer } from "@/lib/auth/staff";
+import { escapeIlike } from "@/lib/catalog/filters";
+import { productImagePublicUrl } from "@/lib/catalog/image-url";
 import { createClient } from "@/lib/supabase/server";
 
 export type AdminBrand = {
@@ -182,25 +188,56 @@ export async function listAdminVehicles(): Promise<{
   };
 }
 
-export async function listAdminProducts(): Promise<{
+export async function listAdminProducts(
+  filters: AdminProductFilters = { query: "", status: "all" },
+  page = 1,
+  pageSize = ADMIN_PRODUCT_PAGE_SIZE,
+): Promise<{
   products: AdminProductListItem[];
+  total: number;
   error: string | null;
 }> {
   const supabase = await staffClient();
 
   if (!supabase) {
-    return { products: [], error: null };
+    return { products: [], total: 0, error: null };
   }
 
-  const { data, error } = await supabase
+  const safePage = Number.isInteger(page) && page > 0 ? page : 1;
+  const safeSize = Number.isInteger(pageSize) && pageSize > 0 ? pageSize : ADMIN_PRODUCT_PAGE_SIZE;
+  const from = (safePage - 1) * safeSize;
+  const to = from + safeSize - 1;
+  const queryText = sanitizeAdminProductQuery(filters.query);
+
+  let query = supabase
     .from("products")
-    .select("id, name, sku, article, slug, price, is_active, brands ( name ), categories ( name )")
-    .not("sku", "ilike", "RLS-TEST%")
-    .order("is_active", { ascending: true })
-    .order("name");
+    .select("id, name, sku, article, slug, price, is_active, brands ( name ), categories ( name )", {
+      count: "exact",
+    })
+    .not("sku", "ilike", "RLS-TEST%");
+
+  if (filters.status === "draft") {
+    query = query.eq("is_active", false);
+  } else if (filters.status === "live") {
+    query = query.eq("is_active", true);
+  }
+
+  if (queryText) {
+    const like = `%${escapeIlike(queryText)}%`;
+    query = query.or(`name.ilike.${like},sku.ilike.${like},article.ilike.${like}`);
+  }
+
+  if (filters.status === "all") {
+    query = query.order("is_active", { ascending: true });
+  }
+
+  const { data, error, count } = await query
+    .order("name")
+    .range(from, to);
 
   if (error) {
-    return { products: [], error: "Не удалось загрузить товары." };
+    console.error("admin.listAdminProducts", error.message);
+    return { products: [], total: 0, error: "Не удалось загрузить товары." };
   }
 
   return {
@@ -224,6 +261,7 @@ export async function listAdminProducts(): Promise<{
         categoryName: categoryName ?? "",
       };
     }),
+    total: count ?? 0,
     error: null,
   };
 }

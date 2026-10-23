@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed:demo": "node scripts/seed-demo.mjs",
+    "seed:demo:cloud": "LIDER_SEED_CLOUD=yes node scripts/seed-demo-cloud.mjs",
+    "seed:photos:cloud": "LIDER_SEED_CLOUD=yes node scripts/upload-cloud-photos.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

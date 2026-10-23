@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { createClient } from "@supabase/supabase-js";
+import { createLocalServiceClient, readLocalSupabaseEnv } from "./local-supabase.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const sqlPath = resolve(root, "supabase/seed-demo-catalog-200.sql");
@@ -421,29 +421,7 @@ const statements = [
 writeFileSync(sqlPath, `${statements.join("\n")}\n`);
 console.log(`wrote ${products.length} unique products to ${sqlPath}`);
 
-function statusEnv() {
-  const status = execSync("npx supabase status -o env", {
-    cwd: root,
-    encoding: "utf8",
-  });
-  return Object.fromEntries(
-    status
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line && !line.startsWith("#") && line.includes("="))
-      .map((line) => {
-        const index = line.indexOf("=");
-        let value = line.slice(index + 1);
-        if (
-          (value.startsWith('"') && value.endsWith('"')) ||
-          (value.startsWith("'") && value.endsWith("'"))
-        ) {
-          value = value.slice(1, -1);
-        }
-        return [line.slice(0, index), value];
-      }),
-  );
-}
+readLocalSupabaseEnv();
 
 execSync("docker exec -i supabase_db_lider psql -U postgres -d postgres -v ON_ERROR_STOP=1", {
   cwd: root,
@@ -451,17 +429,7 @@ execSync("docker exec -i supabase_db_lider psql -U postgres -d postgres -v ON_ER
   stdio: ["pipe", "inherit", "inherit"],
 });
 
-const values = statusEnv();
-const url = values.API_URL;
-const serviceKey = values.SERVICE_ROLE_KEY || values.SECRET_KEY;
-
-if (!url || !serviceKey) {
-  throw new Error("Local Supabase status did not include API_URL and a service key.");
-}
-
-const supabase = createClient(url, serviceKey, {
-  auth: { autoRefreshToken: false, persistSession: false },
-});
+const supabase = createLocalServiceClient();
 
 for (const fileName of Object.values(typePhotos)) {
   const objectPath = `products/types/${fileName}`;
