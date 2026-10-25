@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { chromeLinkClass } from "@/components/chrome";
+import { chromeLinkClass, drawerLinkClass } from "@/components/chrome";
 import { getAuthViewer } from "@/lib/auth/session";
 import { getStaffViewer } from "@/lib/auth/staff";
 
-export async function OrdersLink() {
+export async function OrdersLink({ variant = "bar" }: { variant?: "bar" | "drawer" }) {
   const viewer = await getAuthViewer();
 
   if (!viewer) {
@@ -14,7 +14,7 @@ export async function OrdersLink() {
 
   return (
     <Link
-      className={chromeLinkClass}
+      className={variant === "drawer" ? drawerLinkClass : chromeLinkClass}
       href={staff ? "/admin/orders" : "/orders"}
       prefetch={false}
     >

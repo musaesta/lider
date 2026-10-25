@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { ProductPhoto } from "@/components/product-photo";
+import { ProductSkeleton } from "@/components/skeletons";
 import { getAuthViewer } from "@/lib/auth/session";
 import { formatPrice } from "@/lib/catalog/format";
 import { getPublicProductBySlug } from "@/lib/catalog/queries";
@@ -93,7 +94,7 @@ export default function ProductPage({
         Назад в каталог
       </Link>
       <Suspense
-        fallback={<p className="mt-10 text-sm text-muted">Загрузка товара…</p>}
+        fallback={<ProductSkeleton />}
       >
         <ProductDetails params={params} />
       </Suspense>

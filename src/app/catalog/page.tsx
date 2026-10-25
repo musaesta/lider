@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { CatalogFilters } from "@/components/catalog-filters";
 import { CatalogPagination } from "@/components/catalog-pagination";
 import { ProductCard } from "@/components/product-card";
+import { CatalogDynamicSkeleton } from "@/components/skeletons";
 import {
   catalogHasFilters,
   parseCatalogFilters,
@@ -24,12 +25,11 @@ async function CatalogContent({
   const hasFilters = catalogHasFilters(selected);
 
   return (
-    <>
-      <CatalogFilters
-        key={`${selected.make}|${selected.model}|${selected.year ?? ""}|${selected.query}`}
-        selected={selected}
-        vehicles={vehicles}
-      />
+    <CatalogFilters
+      key={`${selected.make}|${selected.model}|${selected.year ?? ""}|${selected.query}`}
+      selected={selected}
+      vehicles={vehicles}
+    >
       {error ? (
         <p className="mt-10 text-sm text-danger" role="alert">
           {error}
@@ -56,7 +56,7 @@ async function CatalogContent({
       {!error && total > 0 ? (
         <CatalogPagination filters={selected} page={page} total={total} />
       ) : null}
-    </>
+    </CatalogFilters>
   );
 }
 
@@ -74,9 +74,7 @@ export default function CatalogPage({
         Сначала автомобиль или артикул — так проще найти нужную деталь. В корзину
         можно добавить после входа.
       </p>
-      <Suspense
-        fallback={<p className="mt-10 text-sm text-muted">Загрузка каталога…</p>}
-      >
+      <Suspense fallback={<CatalogDynamicSkeleton />}>
         <CatalogContent searchParams={searchParams} />
       </Suspense>
     </main>

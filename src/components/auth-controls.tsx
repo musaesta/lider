@@ -1,10 +1,46 @@
 import Link from "next/link";
 import { signOut } from "@/lib/auth/actions";
 import { getAuthViewer } from "@/lib/auth/session";
-import { chromeGhostClass, chromeLinkClass, chromeSolidClass } from "@/components/chrome";
+import {
+  chromeGhostClass,
+  chromeLinkClass,
+  chromeSolidClass,
+  drawerGhostClass,
+  drawerLinkClass,
+  drawerSolidClass,
+} from "@/components/chrome";
 
-export async function AuthControls() {
+export async function AuthControls({ variant = "bar" }: { variant?: "bar" | "drawer" }) {
   const viewer = await getAuthViewer();
+
+  if (variant === "drawer") {
+    if (!viewer) {
+      return (
+        <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
+          <Link className={drawerLinkClass} href="/login" prefetch={false}>
+            Войти
+          </Link>
+          <Link className={drawerSolidClass} href="/register" prefetch={false}>
+            Регистрация
+          </Link>
+        </div>
+      );
+    }
+
+    return (
+      <div className="mt-2 flex flex-col gap-2 border-t border-white/10 pt-3">
+        <p className="truncate px-3 text-xs font-medium text-on-chrome-muted">{viewer.email}</p>
+        <Link className={drawerLinkClass} href="/account/addresses" prefetch={false}>
+          Адреса
+        </Link>
+        <form action={signOut}>
+          <button className={drawerGhostClass} type="submit">
+            Выйти
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   if (!viewer) {
     return (
