@@ -20,7 +20,7 @@ export function AdminInventoryForm({
   return (
     <form action={action} className="mt-4 flex flex-wrap items-end gap-3">
       <input name="productId" type="hidden" value={productId} />
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Количество на складе
         <input
           className={adminFieldClass}
@@ -34,7 +34,7 @@ export function AdminInventoryForm({
         {pending ? "Сохраняем…" : "Сохранить остаток"}
       </button>
       {state.error ? (
-        <p className="w-full text-sm text-red-600" role="alert">
+        <p className="w-full text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}

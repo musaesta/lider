@@ -13,7 +13,7 @@ export function AdminNav() {
     <nav className="flex flex-wrap gap-2">
       {links.map((link) => (
         <Link
-          className="rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
+          className="rounded-full bg-surface px-3 py-1.5 text-sm font-medium text-muted ring-1 ring-line hover:bg-canvas"
           href={link.href}
           key={link.href}
           prefetch={false}

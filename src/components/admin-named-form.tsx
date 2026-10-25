@@ -17,21 +17,21 @@ export function AdminNamedForm({
 
   return (
     <form action={formAction} className="mt-8 flex max-w-xl flex-col gap-4">
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Название
         <input className={adminFieldClass} name="name" required />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Ссылка (латиница, можно пусто)
         <input className={adminFieldClass} name="slug" />
       </label>
       {extraFields}
-      <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+      <label className="flex items-center gap-2 text-sm font-medium text-ink-soft">
         <input name="isPublished" type="checkbox" />
         Опубликовать
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}

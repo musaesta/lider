@@ -8,18 +8,18 @@ export default async function AdminCategoriesPage() {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold text-slate-950">Категории</h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <h2 className="text-xl font-semibold text-ink">Категории</h2>
+      <p className="mt-1 text-sm text-muted">
         Неопубликованная категория тоже прячет товары с витрины.
       </p>
       {error ? (
-        <p className="mt-6 text-sm text-red-600" role="alert">
+        <p className="mt-6 text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
       <ul className="mt-6 space-y-2 text-sm">
         {categories.map((category) => (
-          <li className="rounded-xl border border-slate-200 bg-white px-4 py-3" key={category.id}>
+          <li className="rounded-xl border border-line bg-surface px-4 py-3" key={category.id}>
             {category.name} · {category.slug} ·{" "}
             {category.isPublished ? "опубликована" : "скрыта"}
           </li>
@@ -28,7 +28,7 @@ export default async function AdminCategoriesPage() {
       <AdminNamedForm
         action={createCategory}
         extraFields={
-          <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
             Описание
             <textarea className={adminFieldClass} name="description" rows={3} />
           </label>

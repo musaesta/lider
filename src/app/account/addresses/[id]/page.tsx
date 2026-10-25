@@ -22,7 +22,7 @@ async function EditAddressContent({
 
   if (error) {
     return (
-      <p className="mt-8 text-sm text-red-600" role="alert">
+      <p className="mt-8 text-sm text-danger" role="alert">
         {error}
       </p>
     );
@@ -43,15 +43,15 @@ export default function EditAddressPage({
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
       <Link
-        className="text-sm font-medium text-slate-600 underline decoration-slate-300 underline-offset-4"
+        className="text-sm font-medium text-muted underline decoration-silver underline-offset-4"
         href="/account/addresses"
       >
         Назад к адресам
       </Link>
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950">
+      <h1 className="mt-6 text-3xl font-black tracking-tight text-ink">
         Изменить адрес
       </h1>
-      <Suspense fallback={<p className="mt-8 text-sm text-slate-500">Загрузка адреса…</p>}>
+      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка адреса…</p>}>
         <EditAddressContent params={params} />
       </Suspense>
     </main>

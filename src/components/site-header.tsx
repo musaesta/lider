@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AdminLink } from "@/components/admin-link";
@@ -7,49 +8,51 @@ import { OrdersLink } from "@/components/orders-link";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-slate-200/80 bg-white/75">
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 sm:px-10 lg:px-12">
-        <div className="flex items-center gap-6">
+    <header className="border-b-[3px] border-accent bg-chrome text-on-chrome">
+      <div className="mx-auto flex min-h-[72px] max-w-7xl flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 sm:px-10 lg:px-12">
+        <div className="flex items-center gap-3 sm:gap-6">
           <Link
-            aria-label="Автозапчасти — главная"
-            className="inline-flex items-center gap-3"
+            aria-label="LIDER Запчасти — главная"
+            className="inline-flex shrink-0"
             href="/"
           >
-            <span className="flex size-10 items-center justify-center rounded-xl bg-slate-950 text-orange-400">
-              <svg aria-hidden="true" className="size-5" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 3v2m0 14v2M3 12h2m14 0h2m-2.636-6.364-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0-1.414-1.414M7.05 7.05 5.636 5.636M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.8"
-                />
-              </svg>
-            </span>
-            <span className="text-sm font-semibold tracking-tight text-slate-900">
-              Автозапчасти
-            </span>
+            <Image
+              alt=""
+              className="size-11 sm:hidden"
+              height={44}
+              src="/logo.svg"
+              unoptimized
+              width={44}
+            />
+            <Image
+              alt=""
+              className="hidden h-[52px] w-auto sm:block"
+              height={52}
+              src="/logo-horizontal.svg"
+              unoptimized
+              width={146}
+            />
           </Link>
           <Link
-            className="text-sm font-medium text-slate-600 hover:text-slate-950"
+            className="text-sm font-semibold uppercase tracking-[0.16em] text-on-chrome-muted transition-colors hover:text-on-chrome"
             href="/catalog"
           >
             Каталог
           </Link>
         </div>
-        <div className="flex items-center gap-2">
-          <Suspense fallback={<div className="h-9 w-16 rounded-full bg-slate-100" />}>
+        <div className="flex flex-wrap items-center justify-end gap-1 sm:gap-2">
+          <Suspense fallback={<div className="h-9 w-16 rounded-full bg-white/10" />}>
             <AdminLink />
           </Suspense>
-          <Suspense fallback={<div className="h-9 w-16 rounded-full bg-slate-100" />}>
+          <Suspense fallback={<div className="h-9 w-16 rounded-full bg-white/10" />}>
             <OrdersLink />
           </Suspense>
-          <Suspense fallback={<div className="h-9 w-20 rounded-full bg-slate-100" />}>
+          <Suspense fallback={<div className="h-9 w-20 rounded-full bg-white/10" />}>
             <CartLink />
           </Suspense>
           <Suspense
             fallback={
-              <div className="h-9 w-40 rounded-full bg-slate-100" aria-hidden="true" />
+              <div className="h-9 w-40 rounded-full bg-white/10" aria-hidden="true" />
             }
           >
             <AuthControls />

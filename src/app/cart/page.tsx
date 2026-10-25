@@ -24,7 +24,7 @@ async function CartContent() {
 
   if (error) {
     return (
-      <p className="mt-10 text-sm text-red-600" role="alert">
+      <p className="mt-10 text-sm text-danger" role="alert">
         {error}
       </p>
     );
@@ -32,9 +32,9 @@ async function CartContent() {
 
   if (lines.length === 0) {
     return (
-      <p className="mt-10 text-sm leading-6 text-slate-500">
+      <p className="mt-10 text-sm leading-6 text-muted">
         Корзина пустая.{" "}
-        <Link className="font-medium text-slate-900 underline" href="/catalog">
+        <Link className="font-medium text-ink underline" href="/catalog">
           Перейти в каталог
         </Link>
       </p>
@@ -51,7 +51,7 @@ async function CartContent() {
       <ul className="space-y-4">
         {lines.map((line) => (
           <li
-            className="grid gap-4 rounded-2xl border border-slate-200/80 bg-white p-4 sm:grid-cols-[6rem_1fr_auto] sm:items-center"
+            className="grid gap-4 rounded-2xl border border-line bg-surface p-4 sm:grid-cols-[6rem_1fr_auto] sm:items-center"
             key={line.id}
           >
             <ProductPhoto
@@ -63,29 +63,29 @@ async function CartContent() {
             <div>
               {line.slug ? (
                 <Link
-                  className="font-semibold text-slate-950 hover:underline"
+                  className="font-semibold text-ink hover:underline"
                   href={`/catalog/${line.slug}`}
                 >
                   {line.name}
                 </Link>
               ) : (
-                <p className="font-semibold text-slate-950">{line.name}</p>
+                <p className="font-semibold text-ink">{line.name}</p>
               )}
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-muted">
                 {line.brandName}
                 {line.article ? ` · арт. ${line.article}` : ""}
               </p>
-              <p className="mt-2 text-sm font-medium text-slate-900">
+              <p className="mt-2 text-sm font-medium text-ink">
                 {formatPrice(line.price)}
               </p>
             </div>
             <div className="flex flex-col items-start gap-2 sm:items-end">
               <form action={updateCartItem} className="flex items-center gap-2">
                 <input name="itemId" type="hidden" value={line.id} />
-                <label className="text-xs text-slate-500">
+                <label className="text-xs text-muted">
                   Кол-во
                   <input
-                    className="ml-2 w-16 rounded-lg border border-slate-200 px-2 py-1.5 text-sm"
+                    className="ml-2 w-16 rounded-lg border border-line px-2 py-1.5 text-sm"
                     defaultValue={line.quantity}
                     max={1000}
                     min={1}
@@ -94,7 +94,7 @@ async function CartContent() {
                   />
                 </label>
                 <button
-                  className="text-xs font-medium text-slate-600 underline"
+                  className="text-xs font-medium text-muted underline"
                   type="submit"
                 >
                   Обновить
@@ -103,7 +103,7 @@ async function CartContent() {
               <form action={removeCartItem}>
                 <input name="itemId" type="hidden" value={line.id} />
                 <button
-                  className="text-xs font-medium text-red-600"
+                  className="text-xs font-medium text-danger"
                   type="submit"
                 >
                   Удалить
@@ -113,11 +113,11 @@ async function CartContent() {
           </li>
         ))}
       </ul>
-      <p className="text-lg font-semibold text-slate-950">
+      <p className="text-lg font-semibold text-ink">
         Итого: {formatPrice(total)}
       </p>
       <Link
-        className="inline-flex w-fit rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white"
+        className="inline-flex w-fit rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white"
         href="/checkout"
       >
         Оформить заказ
@@ -129,10 +129,10 @@ async function CartContent() {
 export default function CartPage() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-16 sm:px-10">
-      <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <h1 className="text-3xl font-black tracking-tight text-ink">
         Корзина
       </h1>
-      <Suspense fallback={<p className="mt-10 text-sm text-slate-500">Загрузка корзины…</p>}>
+      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка корзины…</p>}>
         <CartContent />
       </Suspense>
     </main>

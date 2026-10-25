@@ -24,37 +24,37 @@ export function CatalogPagination({
       aria-label="Страницы каталога"
       className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
     >
-      <p className="text-sm text-slate-500">
+      <p className="text-sm text-muted">
         Показаны {from}–{to} из {total}
       </p>
       {pageCount > 1 ? (
         <div className="flex flex-wrap items-center gap-2">
           {page > 1 ? (
             <Link
-              className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
+              className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
               href={catalogSearchHref(filters, page - 1)}
               prefetch={false}
             >
               Назад
             </Link>
           ) : (
-            <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-slate-300">
+            <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-silver">
               Назад
             </span>
           )}
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-muted">
             {page} из {pageCount}
           </span>
           {page < pageCount ? (
             <Link
-              className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
+              className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
               href={catalogSearchHref(filters, page + 1)}
               prefetch={false}
             >
               Дальше
             </Link>
           ) : (
-            <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-slate-300">
+            <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-silver">
               Дальше
             </span>
           )}

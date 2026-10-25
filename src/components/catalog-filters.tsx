@@ -11,7 +11,7 @@ import {
 } from "@/lib/catalog/filters";
 
 const fieldClass =
-  "rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4";
+  "rounded-xl border border-line bg-surface px-3 py-2.5 text-sm text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4";
 
 export function CatalogFilters({
   vehicles,
@@ -32,7 +32,7 @@ export function CatalogFilters({
   return (
     <form
       action="/catalog"
-      className="mt-8 grid gap-3 rounded-2xl border border-slate-200/80 bg-white p-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_8rem_1.4fr_auto] lg:items-end"
+      className="mt-8 grid gap-3 rounded-2xl border border-line bg-surface p-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_8rem_1.4fr_auto] lg:items-end"
       method="get"
       onSubmit={(event) => {
         event.preventDefault();
@@ -47,7 +47,7 @@ export function CatalogFilters({
         );
       }}
     >
-      <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-muted">
         Марка
         <select
           className={fieldClass}
@@ -67,7 +67,7 @@ export function CatalogFilters({
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-muted">
         Модель
         <select
           className={fieldClass}
@@ -87,7 +87,7 @@ export function CatalogFilters({
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-muted">
         Год
         <select
           className={fieldClass}
@@ -106,7 +106,7 @@ export function CatalogFilters({
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-xs font-medium text-slate-500">
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-muted">
         Артикул или название
         <input
           className={fieldClass}
@@ -118,13 +118,13 @@ export function CatalogFilters({
       </label>
       <div className="flex gap-2">
         <button
-          className="rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white"
+          className="rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white"
           type="submit"
         >
           Найти
         </button>
         <Link
-          className="rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-900"
+          className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted hover:text-ink"
           href="/catalog"
           prefetch={false}
         >

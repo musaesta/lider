@@ -23,9 +23,9 @@ async function RegisterContent({
   return (
     <>
       <RegisterForm nextPath={nextPath} />
-      <p className="mt-6 text-sm text-slate-500">
+      <p className="mt-6 text-sm text-muted">
         Уже есть аккаунт?{" "}
-        <Link className="font-medium text-slate-900 underline" href={loginHref(nextPath)}>
+        <Link className="font-medium text-ink underline" href={loginHref(nextPath)}>
           Войти
         </Link>
       </p>
@@ -40,13 +40,13 @@ export default function RegisterPage({
 }) {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <h1 className="text-3xl font-black tracking-tight text-ink">
         Регистрация
       </h1>
-      <p className="mt-2 text-sm leading-6 text-slate-500">
+      <p className="mt-2 text-sm leading-6 text-muted">
         Создайте аккаунт покупателя, чтобы потом оформлять заказы.
       </p>
-      <Suspense fallback={<p className="mt-8 text-sm text-slate-500">Загрузка…</p>}>
+      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка…</p>}>
         <RegisterContent searchParams={searchParams} />
       </Suspense>
     </main>

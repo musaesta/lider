@@ -18,7 +18,7 @@ export function AdminOrderStatusForm({
   return (
     <form action={action} className="mt-4 flex flex-wrap items-end gap-3">
       <input name="orderId" type="hidden" value={orderId} />
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Статус
         <select className={adminFieldClass} defaultValue={status} name="status">
           {orderStatusOptions.map((value) => (
@@ -32,7 +32,7 @@ export function AdminOrderStatusForm({
         {pending ? "Сохраняем…" : "Сменить статус"}
       </button>
       {state.error ? (
-        <p className="w-full text-sm text-red-600" role="alert">
+        <p className="w-full text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}
@@ -46,11 +46,11 @@ export function AdminOrderCommentForm({ orderId }: { orderId: string }) {
   return (
     <form action={action} className="mt-4 flex max-w-xl flex-col gap-3">
       <input name="orderId" type="hidden" value={orderId} />
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Комментарий
         <textarea className={adminFieldClass} name="body" required rows={3} />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Кому виден
         <select className={adminFieldClass} defaultValue="customer" name="visibility">
           <option value="customer">Покупателю</option>
@@ -58,7 +58,7 @@ export function AdminOrderCommentForm({ orderId }: { orderId: string }) {
         </select>
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}

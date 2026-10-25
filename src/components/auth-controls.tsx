@@ -1,25 +1,18 @@
 import Link from "next/link";
 import { signOut } from "@/lib/auth/actions";
 import { getAuthViewer } from "@/lib/auth/session";
+import { chromeGhostClass, chromeLinkClass, chromeSolidClass } from "@/components/chrome";
 
 export async function AuthControls() {
   const viewer = await getAuthViewer();
 
   if (!viewer) {
     return (
-      <nav className="flex items-center gap-2 text-sm">
-        <Link
-          className="rounded-full px-3 py-1.5 font-medium text-slate-600 hover:bg-slate-100"
-          href="/login"
-          prefetch={false}
-        >
+      <nav className="flex items-center gap-1 text-sm sm:gap-2">
+        <Link className={chromeLinkClass} href="/login" prefetch={false}>
           Войти
         </Link>
-        <Link
-          className="rounded-full bg-slate-950 px-3 py-1.5 font-medium text-white"
-          href="/register"
-          prefetch={false}
-        >
+        <Link className={chromeSolidClass} href="/register" prefetch={false}>
           Регистрация
         </Link>
       </nav>
@@ -27,22 +20,19 @@ export async function AuthControls() {
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2 sm:gap-3">
       <Link
-        className="hidden rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 sm:inline"
+        className={`${chromeLinkClass} hidden sm:inline`}
         href="/account/addresses"
         prefetch={false}
       >
         Адреса
       </Link>
-      <span className="hidden max-w-[180px] truncate text-xs font-medium text-slate-600 sm:inline">
+      <span className="hidden max-w-[180px] truncate text-xs font-medium text-on-chrome-muted sm:inline">
         {viewer.email}
       </span>
       <form action={signOut}>
-        <button
-          className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600"
-          type="submit"
-        >
+        <button className={chromeGhostClass} type="submit">
           Выйти
         </button>
       </form>

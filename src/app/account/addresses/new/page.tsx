@@ -19,15 +19,15 @@ export default function NewAddressPage() {
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:px-10">
       <Link
-        className="text-sm font-medium text-slate-600 underline decoration-slate-300 underline-offset-4"
+        className="text-sm font-medium text-muted underline decoration-silver underline-offset-4"
         href="/account/addresses"
       >
         Назад к адресам
       </Link>
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-slate-950">
+      <h1 className="mt-6 text-3xl font-black tracking-tight text-ink">
         Новый адрес
       </h1>
-      <Suspense fallback={<p className="mt-8 text-sm text-slate-500">Загрузка…</p>}>
+      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка…</p>}>
         <NewAddressContent />
       </Suspense>
     </main>
