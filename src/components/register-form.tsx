@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { signUp, type AuthFormState } from "@/lib/auth/actions";
+import { Spinner } from "@/components/spinner";
 
 const initialState: AuthFormState = { error: null, info: null };
 
@@ -63,10 +64,11 @@ export function RegisterForm({ nextPath = "/" }: { nextPath?: string }) {
         </p>
       ) : null}
       <button
-        className="mt-2 rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+        className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
         disabled={pending}
         type="submit"
       >
+        {pending ? <Spinner /> : null}
         {pending ? "Создаём…" : "Зарегистрироваться"}
       </button>
     </form>

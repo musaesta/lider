@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PendingLink } from "@/components/pending-link";
 import { CATALOG_PAGE_SIZE, catalogSearchHref, type CatalogFilters } from "@/lib/catalog/filters";
 
 export function CatalogPagination({
@@ -30,13 +30,12 @@ export function CatalogPagination({
       {pageCount > 1 ? (
         <div className="flex flex-wrap items-center gap-2">
           {page > 1 ? (
-            <Link
+            <PendingLink
               className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
               href={catalogSearchHref(filters, page - 1)}
-              prefetch={false}
             >
               Назад
-            </Link>
+            </PendingLink>
           ) : (
             <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-silver">
               Назад
@@ -46,13 +45,12 @@ export function CatalogPagination({
             {page} из {pageCount}
           </span>
           {page < pageCount ? (
-            <Link
+            <PendingLink
               className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
               href={catalogSearchHref(filters, page + 1)}
-              prefetch={false}
             >
               Дальше
-            </Link>
+            </PendingLink>
           ) : (
             <span className="rounded-xl border border-transparent px-3 py-2 text-sm text-silver">
               Дальше

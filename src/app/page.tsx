@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CatalogFilters } from "@/components/catalog-filters";
+import { FilterSkeleton } from "@/components/skeletons";
 import { catalogFilterOptions } from "@/lib/catalog/filters";
 import { listPublicVehicles } from "@/lib/catalog/queries";
 
@@ -92,7 +93,7 @@ export default function Home() {
         </div>
       </section>
       <Suspense
-        fallback={<p className="mt-10 text-sm text-muted">Загрузка подбора…</p>}
+        fallback={<FilterSkeleton />}
       >
         <HomeSearch />
       </Suspense>

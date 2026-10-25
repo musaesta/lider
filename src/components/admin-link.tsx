@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { chromeLinkClass } from "@/components/chrome";
+import { chromeLinkClass, drawerLinkClass } from "@/components/chrome";
 import { getStaffViewer } from "@/lib/auth/staff";
 
-export async function AdminLink() {
+export async function AdminLink({ variant = "bar" }: { variant?: "bar" | "drawer" }) {
   const staff = await getStaffViewer();
 
   if (!staff) {
@@ -10,7 +10,11 @@ export async function AdminLink() {
   }
 
   return (
-    <Link className={chromeLinkClass} href="/admin" prefetch={false}>
+    <Link
+      className={variant === "drawer" ? drawerLinkClass : chromeLinkClass}
+      href="/admin"
+      prefetch={false}
+    >
       Админка
     </Link>
   );

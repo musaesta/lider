@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { formatAddress, type Address } from "@/lib/account/address-format";
 import { placeOrder, type CheckoutFormState } from "@/lib/orders/actions";
+import { Spinner } from "@/components/spinner";
 
 const initialState: CheckoutFormState = { error: null };
 
@@ -72,10 +73,11 @@ export function CheckoutForm({
         </p>
       ) : null}
       <button
-        className="w-fit rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+        className="inline-flex w-fit items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
         disabled={pending || !canPlace}
         type="submit"
       >
+        {pending ? <Spinner /> : null}
         {pending ? "Оформляем…" : "Оформить заказ"}
       </button>
       <p className="text-sm text-faint">

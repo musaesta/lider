@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition, type ReactNode } from "react";
+import { CatalogResultsSkeleton } from "@/components/skeletons";
+import { Spinner } from "@/components/spinner";
 import {
   catalogFilterOptions,
   catalogSearchHref,
@@ -16,11 +18,14 @@ const fieldClass =
 export function CatalogFilters({
   vehicles,
   selected,
+  children,
 }: {
   vehicles: CatalogVehicleOption[];
   selected: CatalogFilters;
+  children?: ReactNode;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [make, setMake] = useState(selected.make);
   const [model, setModel] = useState(selected.model);
   const [year, setYear] = useState(selected.year ? String(selected.year) : "");
@@ -30,6 +35,7 @@ export function CatalogFilters({
   );
 
   return (
+    <>
     <form
       action="/catalog"
       className="mt-8 grid gap-3 rounded-2xl border border-line bg-surface p-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_8rem_1.4fr_auto] lg:items-end"
@@ -37,14 +43,15 @@ export function CatalogFilters({
       onSubmit={(event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget);
-        router.push(
-          catalogSearchHref({
-            make: String(form.get("make") ?? "").trim(),
-            model: String(form.get("model") ?? "").trim(),
-            year: Number(form.get("year")) || null,
-            query: String(form.get("q") ?? "").trim(),
-          }),
-        );
+        const href = catalogSearchHref({
+          make: String(form.get("make") ?? "").trim(),
+          model: String(form.get("model") ?? "").trim(),
+          year: Number(form.get("year")) || null,
+          query: String(form.get("q") ?? "").trim(),
+        });
+        startTransition(() => {
+          router.push(href);
+        });
       }}
     >
       <label className="flex flex-col gap-1.5 text-xs font-medium text-muted">
@@ -118,12 +125,16 @@ export function CatalogFilters({
       </label>
       <div className="flex gap-2">
         <button
-          className="rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white"
+          aria-busy={isPending}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={isPending}
           type="submit"
         >
-          Найти
+          {isPending ? <Spinner /> : null}
+          {isPending ? "Ищем…" : "Найти"}
         </button>
         <Link
+          aria-disabled={isPending}
           className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted hover:text-ink"
           href="/catalog"
           prefetch={false}
@@ -132,5 +143,7 @@ export function CatalogFilters({
         </Link>
       </div>
     </form>
+    {isPending && children ? <CatalogResultsSkeleton /> : children}
+    </>
   );
 }
