@@ -14,31 +14,31 @@ export default async function AdminOrdersPage() {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold text-slate-950">Заказы</h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <h2 className="text-xl font-semibold text-ink">Заказы</h2>
+      <p className="mt-1 text-sm text-muted">
         Смена статуса и комментарий идут через серверную операцию, не через
         прямой INSERT покупателя.
       </p>
       {error ? (
-        <p className="mt-8 text-sm text-red-600" role="alert">
+        <p className="mt-8 text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
       {orders.length === 0 && !error ? (
-        <p className="mt-8 text-sm text-slate-500">Заказов пока нет.</p>
+        <p className="mt-8 text-sm text-muted">Заказов пока нет.</p>
       ) : (
         <ul className="mt-8 space-y-3">
           {orders.map((order) => (
             <li key={order.id}>
               <Link
-                className="block rounded-2xl border border-slate-200/80 bg-white p-4 hover:border-slate-300"
+                className="block rounded-2xl border border-line bg-surface p-4 hover:border-accent/40"
                 href={`/admin/orders/${order.id}`}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="font-semibold text-slate-950">{order.orderNumber}</p>
+                  <p className="font-semibold text-ink">{order.orderNumber}</p>
                   <p className="text-sm font-medium">{formatPrice(order.totalAmount)}</p>
                 </div>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-muted">
                   {order.contactName} · {formatOrderDate(order.createdAt)} ·{" "}
                   {orderStatusLabel(order.status)} · {paymentStatusLabel(order.paymentStatus)}
                 </p>

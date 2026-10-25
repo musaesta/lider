@@ -21,7 +21,7 @@ export function AdminProductForm({
   return (
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
       {product ? <input name="productId" type="hidden" value={product.id} /> : null}
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Название
         <input
           className={adminFieldClass}
@@ -30,7 +30,7 @@ export function AdminProductForm({
           required
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         SKU
         <input
           className={adminFieldClass}
@@ -39,7 +39,7 @@ export function AdminProductForm({
           required
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Артикул
         <input
           className={adminFieldClass}
@@ -48,7 +48,7 @@ export function AdminProductForm({
           required
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Ссылка (латиница)
         <input
           className={adminFieldClass}
@@ -57,7 +57,7 @@ export function AdminProductForm({
           placeholder="esli-pusto-vozmetsya-sku"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Бренд
         <select
           className={adminFieldClass}
@@ -74,7 +74,7 @@ export function AdminProductForm({
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Категория
         <select
           className={adminFieldClass}
@@ -91,7 +91,7 @@ export function AdminProductForm({
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Цена, ₽
         <input
           className={adminFieldClass}
@@ -103,7 +103,7 @@ export function AdminProductForm({
           type="number"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Описание
         <textarea
           className={adminFieldClass}
@@ -113,7 +113,7 @@ export function AdminProductForm({
         />
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}

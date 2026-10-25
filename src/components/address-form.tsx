@@ -11,7 +11,7 @@ import {
 const initialState: AddressFormState = { error: null };
 
 const fieldClass =
-  "rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4";
+  "rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4";
 
 export function AddressForm({
   address,
@@ -24,7 +24,7 @@ export function AddressForm({
   return (
     <form action={formAction} className="mt-8 flex max-w-xl flex-col gap-4">
       {address ? <input name="addressId" type="hidden" value={address.id} /> : null}
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Получатель
         <input
           className={fieldClass}
@@ -34,7 +34,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Телефон
         <input
           className={fieldClass}
@@ -44,7 +44,7 @@ export function AddressForm({
           type="tel"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Город
         <input
           className={fieldClass}
@@ -54,7 +54,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Регион
         <input
           className={fieldClass}
@@ -63,7 +63,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Индекс
         <input
           className={fieldClass}
@@ -72,7 +72,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Улица, дом
         <input
           className={fieldClass}
@@ -82,7 +82,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Квартира, офис
         <input
           className={fieldClass}
@@ -91,7 +91,7 @@ export function AddressForm({
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Комментарий для доставки
         <textarea
           className={fieldClass}
@@ -101,12 +101,12 @@ export function AddressForm({
         />
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}
       <button
-        className="mt-2 w-fit rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+        className="mt-2 w-fit rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
         disabled={pending}
         type="submit"
       >

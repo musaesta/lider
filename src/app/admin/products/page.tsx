@@ -21,8 +21,8 @@ function StorefrontBadge({ isActive }: { isActive: boolean }) {
     <span
       className={
         isActive
-          ? "rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-800"
-          : "rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-900"
+          ? "rounded-full bg-success/10 px-2 py-0.5 text-xs font-medium text-success"
+          : "rounded-full bg-warning/10 px-2 py-0.5 text-xs font-medium text-warning"
       }
     >
       {isActive ? "На витрине" : "Черновик"}
@@ -53,8 +53,8 @@ async function AdminProductsContent({
             <Link
               className={
                 active
-                  ? "rounded-full bg-slate-950 px-3 py-1.5 text-sm font-medium text-white"
-                  : "rounded-full bg-white px-3 py-1.5 text-sm font-medium text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
+                  ? "rounded-full bg-accent transition-colors hover:bg-accent-hover px-3 py-1.5 text-sm font-medium text-white"
+                  : "rounded-full bg-surface px-3 py-1.5 text-sm font-medium text-muted ring-1 ring-line hover:bg-canvas"
               }
               href={adminProductsHref({ query: filters.query, status: tab.status })}
               key={tab.status}
@@ -72,7 +72,7 @@ async function AdminProductsContent({
         {filters.status !== "all" ? (
           <input name="status" type="hidden" value={filters.status} />
         ) : null}
-        <label className="flex min-w-0 flex-1 flex-col gap-1.5 text-xs font-medium text-slate-500">
+        <label className="flex min-w-0 flex-1 flex-col gap-1.5 text-xs font-medium text-muted">
           Поиск по названию, артикулу или SKU
           <input
             className={adminFieldClass}
@@ -87,7 +87,7 @@ async function AdminProductsContent({
         </button>
         {hasQuery || filters.status !== "all" ? (
           <Link
-            className="rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-900"
+            className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted hover:text-ink"
             href="/admin/products"
           >
             Сброс
@@ -95,12 +95,12 @@ async function AdminProductsContent({
         ) : null}
       </form>
       {error ? (
-        <p className="mt-8 text-sm text-red-600" role="alert">
+        <p className="mt-8 text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
       {!error && products.length === 0 ? (
-        <p className="mt-8 text-sm text-slate-500">
+        <p className="mt-8 text-sm text-muted">
           {hasQuery || filters.status !== "all"
             ? "По этому запросу товаров нет."
             : "Товаров пока нет."}
@@ -111,15 +111,15 @@ async function AdminProductsContent({
           {products.map((product) => (
             <li key={product.id}>
               <Link
-                className="block rounded-2xl border border-slate-200/80 bg-white p-4 hover:border-slate-300"
+                className="block rounded-2xl border border-line bg-surface p-4 hover:border-accent/40"
                 href={`/admin/products/${product.id}`}
                 prefetch={false}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="font-semibold text-slate-950">{product.name}</p>
+                  <p className="font-semibold text-ink">{product.name}</p>
                   <p className="text-sm font-medium">{formatPrice(product.price)}</p>
                 </div>
-                <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+                <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-muted">
                   <StorefrontBadge isActive={product.isActive} />
                   <span>
                     {product.brandName} · {product.categoryName} · арт. {product.article} ·{" "}
@@ -136,25 +136,25 @@ async function AdminProductsContent({
           aria-label="Страницы списка товаров"
           className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
         >
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted">
             Показаны {from}–{to} из {total}
           </p>
           {pageCount > 1 ? (
             <div className="flex flex-wrap items-center gap-2">
               {page > 1 ? (
                 <Link
-                  className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
+                  className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
                   href={adminProductsHref(filters, page - 1)}
                 >
                   Назад
                 </Link>
               ) : null}
-              <span className="text-sm text-slate-500">
+              <span className="text-sm text-muted">
                 {page} из {pageCount}
               </span>
               {page < pageCount ? (
                 <Link
-                  className="rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 hover:border-slate-300"
+                  className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
                   href={adminProductsHref(filters, page + 1)}
                 >
                   Дальше
@@ -177,20 +177,20 @@ export default function AdminProductsPage({
     <section>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold text-slate-950">Товары</h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <h2 className="text-xl font-semibold text-ink">Товары</h2>
+          <p className="mt-1 text-sm text-muted">
             Найдите карточку по имени или артикулу. Черновик виден только здесь;
             на витрине — после кнопки «Выложить».
           </p>
         </div>
         <Link
-          className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium text-white"
+          className="rounded-full bg-accent transition-colors hover:bg-accent-hover px-4 py-2 text-sm font-medium text-white"
           href="/admin/products/new"
         >
           Новый товар
         </Link>
       </div>
-      <Suspense fallback={<p className="mt-8 text-sm text-slate-500">Загрузка товаров…</p>}>
+      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка товаров…</p>}>
         <AdminProductsContent searchParams={searchParams} />
       </Suspense>
     </section>

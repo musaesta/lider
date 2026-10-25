@@ -15,7 +15,7 @@ export function ProductPhoto({
 }) {
   return (
     <div
-      className={`relative aspect-square overflow-hidden bg-slate-100 ${className}`.trim()}
+      className={`relative aspect-square overflow-hidden bg-canvas ${className}`.trim()}
     >
       {src ? (
         <Image
@@ -31,7 +31,7 @@ export function ProductPhoto({
       ) : (
         <div
           aria-hidden="true"
-          className="flex h-full items-center justify-center text-slate-300"
+          className="flex h-full items-center justify-center text-faint"
         >
           <svg className="size-12" fill="none" viewBox="0 0 24 24">
             <path

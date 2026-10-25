@@ -14,16 +14,16 @@ export function AdminImageForm({ productId }: { productId: string }) {
   return (
     <form action={action} className="mt-4 flex max-w-xl flex-col gap-3">
       <input name="productId" type="hidden" value={productId} />
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Файл
         <input accept="image/jpeg,image/png,image/webp" name="file" required type="file" />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Подпись к фото
         <input className={adminFieldClass} name="altText" />
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}

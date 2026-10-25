@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { chromeLinkClass } from "@/components/chrome";
 import { getAuthViewer } from "@/lib/auth/session";
 import { getStaffViewer } from "@/lib/auth/staff";
 
@@ -13,7 +14,7 @@ export async function OrdersLink() {
 
   return (
     <Link
-      className="rounded-full px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100"
+      className={chromeLinkClass}
       href={staff ? "/admin/orders" : "/orders"}
       prefetch={false}
     >

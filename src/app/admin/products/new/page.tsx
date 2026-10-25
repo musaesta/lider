@@ -10,17 +10,17 @@ export default async function NewAdminProductPage() {
 
   return (
     <section>
-      <Link className="text-sm font-medium text-slate-600 underline" href="/admin/products">
+      <Link className="text-sm font-medium text-muted underline" href="/admin/products">
         Назад к товарам
       </Link>
-      <h2 className="mt-4 text-xl font-semibold text-slate-950">Новый товар</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+      <h2 className="mt-4 text-xl font-semibold text-ink">Новый товар</h2>
+      <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
         Шаг 1: сохраните карточку. Дальше откроется шаг 2 — фото, остаток и
         автомобиль. На витрине товар появится только после кнопки «Выложить на
         витрину».
       </p>
       {brands.length === 0 || categories.length === 0 ? (
-        <p className="mt-8 text-sm text-slate-500">
+        <p className="mt-8 text-sm text-muted">
           Сначала добавьте бренд и категорию.
         </p>
       ) : (

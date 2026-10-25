@@ -6,18 +6,18 @@ export default async function AdminVehiclesPage() {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold text-slate-950">Автомобили</h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <h2 className="text-xl font-semibold text-ink">Автомобили</h2>
+      <p className="mt-1 text-sm text-muted">
         Эти записи привязываются к товарам в карточке товара.
       </p>
       {error ? (
-        <p className="mt-6 text-sm text-red-600" role="alert">
+        <p className="mt-6 text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
       <ul className="mt-6 space-y-2 text-sm">
         {vehicles.map((vehicle) => (
-          <li className="rounded-xl border border-slate-200 bg-white px-4 py-3" key={vehicle.id}>
+          <li className="rounded-xl border border-line bg-surface px-4 py-3" key={vehicle.id}>
             {vehicleLabel(vehicle)}
           </li>
         ))}

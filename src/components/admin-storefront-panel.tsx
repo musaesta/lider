@@ -7,7 +7,7 @@ import {
 
 function Step({ done, label }: { done: boolean; label: string }) {
   return (
-    <li className={done ? "text-slate-900" : "text-slate-500"}>
+    <li className={done ? "text-ink" : "text-muted"}>
       {done ? "Готово" : "Ещё нет"} · {label}
     </li>
   );
@@ -35,11 +35,11 @@ export function AdminStorefrontPanel({
   const visibleOnStorefront = isActive && brandPublished && categoryPublished;
 
   return (
-    <div className="rounded-2xl border border-orange-200 bg-orange-50/70 p-5">
-      <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+    <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5">
+      <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
         Публикация на витрине
       </h3>
-      <p className="mt-2 text-sm leading-6 text-slate-700">
+      <p className="mt-2 text-sm leading-6 text-ink-soft">
         {visibleOnStorefront
           ? "Товар виден покупателям в каталоге."
           : "Это черновик. Пока не нажмёте «Выложить на витрину», в каталоге его не будет."}
@@ -52,12 +52,12 @@ export function AdminStorefrontPanel({
         <Step done={isActive} label="Выложен на витрину" />
       </ul>
       {!brandPublished ? (
-        <p className="mt-3 text-sm text-red-600">
+        <p className="mt-3 text-sm text-danger">
           Бренд скрыт. Сначала опубликуйте его в разделе «Бренды».
         </p>
       ) : null}
       {!categoryPublished ? (
-        <p className="mt-3 text-sm text-red-600">
+        <p className="mt-3 text-sm text-danger">
           Категория скрыта. Сначала опубликуйте её в разделе «Категории».
         </p>
       ) : null}
@@ -72,7 +72,7 @@ export function AdminStorefrontPanel({
             </Link>
             <form action={hideProductFromCatalog}>
               <input name="productId" type="hidden" value={productId} />
-              <button className="text-sm font-medium text-slate-600 underline" type="submit">
+              <button className="text-sm font-medium text-muted underline" type="submit">
                 Снять с витрины
               </button>
             </form>

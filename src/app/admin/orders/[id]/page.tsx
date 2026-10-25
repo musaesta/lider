@@ -19,7 +19,7 @@ export default async function AdminOrderPage({
 
   if (error) {
     return (
-      <p className="text-sm text-red-600" role="alert">
+      <p className="text-sm text-danger" role="alert">
         {error}
       </p>
     );
@@ -42,23 +42,23 @@ export default async function AdminOrderPage({
   return (
     <article className="space-y-8">
       <div>
-        <Link className="text-sm font-medium text-slate-600 underline" href="/admin/orders">
+        <Link className="text-sm font-medium text-muted underline" href="/admin/orders">
           Назад к заказам
         </Link>
-        <h2 className="mt-4 text-xl font-semibold text-slate-950">
+        <h2 className="mt-4 text-xl font-semibold text-ink">
           Заказ {order.orderNumber}
         </h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-muted">
           {formatOrderDate(order.createdAt)} · {orderStatusLabel(order.status)} ·{" "}
           {paymentStatusLabel(order.paymentStatus)}
         </p>
       </div>
-      <section className="rounded-2xl border border-slate-200/80 bg-white p-5">
+      <section className="rounded-2xl border border-line bg-surface p-5">
         <p className="text-lg font-semibold">{formatPrice(order.totalAmount)}</p>
         <AdminOrderStatusForm key={order.status} orderId={order.id} status={order.status} />
       </section>
       <section>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Состав
         </h3>
         <ul className="mt-3 space-y-2">
@@ -72,23 +72,23 @@ export default async function AdminOrderPage({
           ))}
         </ul>
       </section>
-      <section className="rounded-2xl border border-slate-200/80 bg-white p-5 text-sm">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <section className="rounded-2xl border border-line bg-surface p-5 text-sm">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Доставка
         </h3>
         <p className="mt-3 font-medium">
           {order.contactName}, {order.contactPhone}
         </p>
-        <p className="mt-1 text-slate-500">{shipping}</p>
+        <p className="mt-1 text-muted">{shipping}</p>
         {order.customerComment ? (
-          <p className="mt-3 text-slate-600">Комментарий покупателя: {order.customerComment}</p>
+          <p className="mt-3 text-muted">Комментарий покупателя: {order.customerComment}</p>
         ) : null}
       </section>
       <section>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           История
         </h3>
-        <ul className="mt-3 space-y-1 text-sm text-slate-600">
+        <ul className="mt-3 space-y-1 text-sm text-muted">
           {order.history.map((entry) => (
             <li key={entry.id}>
               {formatOrderDate(entry.createdAt)} — {orderStatusLabel(entry.status)}
@@ -97,17 +97,17 @@ export default async function AdminOrderPage({
         </ul>
       </section>
       <section>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Комментарии
         </h3>
         {order.comments.length === 0 ? (
-          <p className="mt-3 text-sm text-slate-500">Пока нет.</p>
+          <p className="mt-3 text-sm text-muted">Пока нет.</p>
         ) : (
           <ul className="mt-3 space-y-3">
             {order.comments.map((comment) => (
-              <li className="rounded-2xl border border-slate-200 bg-white p-4 text-sm" key={comment.id}>
+              <li className="rounded-2xl border border-line bg-surface p-4 text-sm" key={comment.id}>
                 <p>{comment.body}</p>
-                <p className="mt-2 text-xs text-slate-400">
+                <p className="mt-2 text-xs text-faint">
                   {formatOrderDate(comment.createdAt)} ·{" "}
                   {comment.visibility === "internal" ? "внутренний" : "покупателю"}
                 </p>

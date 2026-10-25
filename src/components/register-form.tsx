@@ -11,41 +11,41 @@ export function RegisterForm({ nextPath = "/" }: { nextPath?: string }) {
   return (
     <form action={action} className="mt-8 flex flex-col gap-4">
       <input name="next" type="hidden" value={nextPath} />
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Имя
         <input
           autoComplete="name"
-          className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4"
+          className="rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4"
           name="displayName"
           type="text"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Email
         <input
           autoComplete="email"
-          className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4"
+          className="rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4"
           name="email"
           required
           type="email"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Пароль
         <input
           autoComplete="new-password"
-          className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4"
+          className="rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4"
           minLength={8}
           name="password"
           required
           type="password"
         />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
         Повторите пароль
         <input
           autoComplete="new-password"
-          className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 outline-none ring-orange-400/40 focus:border-orange-300 focus:ring-4"
+          className="rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4"
           minLength={8}
           name="passwordConfirm"
           required
@@ -53,17 +53,17 @@ export function RegisterForm({ nextPath = "/" }: { nextPath?: string }) {
         />
       </label>
       {state.error ? (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {state.error}
         </p>
       ) : null}
       {state.info ? (
-        <p className="text-sm text-slate-600" role="status">
+        <p className="text-sm text-muted" role="status">
           {state.info}
         </p>
       ) : null}
       <button
-        className="mt-2 rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+        className="mt-2 rounded-xl bg-accent transition-colors hover:bg-accent-hover px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
         disabled={pending}
         type="submit"
       >

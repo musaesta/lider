@@ -25,7 +25,7 @@ async function CheckoutContent() {
 
   if (cartError) {
     return (
-      <p className="mt-10 text-sm text-red-600" role="alert">
+      <p className="mt-10 text-sm text-danger" role="alert">
         {cartError}
       </p>
     );
@@ -43,48 +43,48 @@ async function CheckoutContent() {
 
   return (
     <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-      <section className="rounded-2xl border border-slate-200/80 bg-white p-5">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <section className="rounded-2xl border border-line bg-surface p-5">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Состав заказа
         </h2>
         <ul className="mt-4 space-y-3">
           {lines.map((line) => (
             <li className="flex justify-between gap-4 text-sm" key={line.id}>
               <span>
-                <span className="block font-medium text-slate-950">
+                <span className="block font-medium text-ink">
                   {line.name}
                 </span>
-                <span className="mt-0.5 block text-slate-500">
+                <span className="mt-0.5 block text-muted">
                   {line.quantity} × {formatPrice(line.price)}
                   {line.article ? ` · арт. ${line.article}` : ""}
                 </span>
                 {!line.available ? (
-                  <span className="mt-1 block text-red-600">Товар больше недоступен</span>
+                  <span className="mt-1 block text-danger">Товар больше недоступен</span>
                 ) : null}
               </span>
-              <span className="font-medium text-slate-900">
+              <span className="font-medium text-ink">
                 {formatPrice(lineAmount(line.price, line.quantity))}
               </span>
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-lg font-semibold text-slate-950">
+        <p className="mt-5 text-lg font-semibold text-ink">
           Итого: {formatPrice(total)}
         </p>
         <p className="mt-2">
-          <Link className="text-sm font-medium text-slate-600 underline" href="/cart">
+          <Link className="text-sm font-medium text-muted underline" href="/cart">
             Изменить корзину
           </Link>
         </p>
       </section>
       <section>
         {unavailable ? (
-          <p className="mb-4 text-sm text-red-600" role="alert">
+          <p className="mb-4 text-sm text-danger" role="alert">
             В корзине есть недоступный товар. Удалите его перед оформлением.
           </p>
         ) : null}
         {addressError ? (
-          <p className="text-sm text-red-600" role="alert">
+          <p className="text-sm text-danger" role="alert">
             {addressError}
           </p>
         ) : (
@@ -98,13 +98,13 @@ async function CheckoutContent() {
 export default function CheckoutPage() {
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 sm:px-10">
-      <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
+      <h1 className="text-3xl font-black tracking-tight text-ink">
         Оформление заказа
       </h1>
-      <p className="mt-2 text-sm text-slate-500">
+      <p className="mt-2 text-sm text-muted">
         Оплата не списывается. Заказ создаётся со статусом «ожидает оплаты».
       </p>
-      <Suspense fallback={<p className="mt-10 text-sm text-slate-500">Загрузка оформления…</p>}>
+      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка оформления…</p>}>
         <CheckoutContent />
       </Suspense>
     </main>

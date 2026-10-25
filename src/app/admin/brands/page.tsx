@@ -7,18 +7,18 @@ export default async function AdminBrandsPage() {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold text-slate-950">Бренды</h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <h2 className="text-xl font-semibold text-ink">Бренды</h2>
+      <p className="mt-1 text-sm text-muted">
         Неопубликованный бренд скрывает все свои товары с витрины.
       </p>
       {error ? (
-        <p className="mt-6 text-sm text-red-600" role="alert">
+        <p className="mt-6 text-sm text-danger" role="alert">
           {error}
         </p>
       ) : null}
       <ul className="mt-6 space-y-2 text-sm">
         {brands.map((brand) => (
-          <li className="rounded-xl border border-slate-200 bg-white px-4 py-3" key={brand.id}>
+          <li className="rounded-xl border border-line bg-surface px-4 py-3" key={brand.id}>
             {brand.name} · {brand.slug} · {brand.isPublished ? "опубликован" : "скрыт"}
           </li>
         ))}

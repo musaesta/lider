@@ -33,7 +33,7 @@ export default async function AdminProductPage({
 
   if (error) {
     return (
-      <p className="text-sm text-red-600" role="alert">
+      <p className="text-sm text-danger" role="alert">
         {error}
       </p>
     );
@@ -51,11 +51,11 @@ export default async function AdminProductPage({
   return (
     <section className="space-y-10">
       <div>
-        <Link className="text-sm font-medium text-slate-600 underline" href="/admin/products">
+        <Link className="text-sm font-medium text-muted underline" href="/admin/products">
           Назад к товарам
         </Link>
-        <h2 className="mt-4 text-xl font-semibold text-slate-950">{product.name}</h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <h2 className="mt-4 text-xl font-semibold text-ink">{product.name}</h2>
+        <p className="mt-1 text-sm text-muted">
           {product.brandName} · {product.categoryName}
           {product.isActive ? " · на витрине" : " · черновик"}
         </p>
@@ -70,21 +70,21 @@ export default async function AdminProductPage({
         productId={product.id}
         slug={product.slug}
       />
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-line bg-surface p-5">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Фото
         </h3>
         {product.images.length === 0 ? (
-          <p className="mt-3 text-sm text-slate-500">Фото пока нет.</p>
+          <p className="mt-3 text-sm text-muted">Фото пока нет.</p>
         ) : (
           <ul className="mt-4 grid gap-4 sm:grid-cols-3">
             {product.images.map((image) => (
-              <li className="rounded-xl border border-slate-200 p-3" key={image.id}>
+              <li className="rounded-xl border border-line p-3" key={image.id}>
                 <ProductPhoto alt={image.altText || product.name} src={image.url} />
                 <form action={deleteProductImage} className="mt-3">
                   <input name="productId" type="hidden" value={product.id} />
                   <input name="imageId" type="hidden" value={image.id} />
-                  <button className="text-sm font-medium text-red-600" type="submit">
+                  <button className="text-sm font-medium text-danger" type="submit">
                     Удалить
                   </button>
                 </form>
@@ -94,11 +94,11 @@ export default async function AdminProductPage({
         )}
         <AdminImageForm productId={product.id} />
       </div>
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-line bg-surface p-5">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Остаток
         </h3>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-muted">
           Резерв: {product.quantityReserved ?? 0}. На витрине будет «в наличии», если
           свободное количество больше нуля.
         </p>
@@ -107,12 +107,12 @@ export default async function AdminProductPage({
           quantityOnHand={product.quantityOnHand}
         />
       </div>
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-line bg-surface p-5">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Совместимость
         </h3>
         {product.compatibility.length === 0 ? (
-          <p className="mt-3 text-sm text-slate-500">Автомобили пока не привязаны.</p>
+          <p className="mt-3 text-sm text-muted">Автомобили пока не привязаны.</p>
         ) : (
           <ul className="mt-4 space-y-2">
             {product.compatibility.map((item) => (
@@ -121,7 +121,7 @@ export default async function AdminProductPage({
                 <form action={removeProductCompatibility}>
                   <input name="productId" type="hidden" value={product.id} />
                   <input name="linkId" type="hidden" value={item.id} />
-                  <button className="font-medium text-red-600" type="submit">
+                  <button className="font-medium text-danger" type="submit">
                     Убрать
                   </button>
                 </form>
@@ -133,7 +133,7 @@ export default async function AdminProductPage({
           <form action={addProductCompatibility} className="mt-4 flex flex-wrap gap-3">
             <input name="productId" type="hidden" value={product.id} />
             <select
-              className="rounded-xl border border-slate-200 px-3 py-2 text-sm"
+              className="rounded-xl border border-line px-3 py-2 text-sm"
               name="vehicleId"
               required
             >
@@ -150,7 +150,7 @@ export default async function AdminProductPage({
             </button>
           </form>
         ) : (
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm text-muted">
             Все автомобили уже привязаны.{" "}
             <Link className="underline" href="/admin/vehicles">
               Добавить авто
@@ -158,11 +158,11 @@ export default async function AdminProductPage({
           </p>
         )}
       </div>
-      <div className="rounded-2xl border border-slate-200/80 bg-white p-5">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+      <div className="rounded-2xl border border-line bg-surface p-5">
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">
           Данные карточки
         </h3>
-        <p className="mt-2 mb-6 text-sm text-slate-500">
+        <p className="mt-2 mb-6 text-sm text-muted">
           Название, цена и артикул. Это не выкладывает товар на витрину.
         </p>
         <AdminProductForm brands={brands} categories={categories} product={product} />

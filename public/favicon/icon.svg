@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="LZ">
+  <defs>
+    <radialGradient id="ring" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 256) scale(256)"><stop offset="0.85" stop-color="#F03030"/><stop offset="1" stop-color="#A81414"/></radialGradient>
+    <linearGradient id="favSilver" x1="0" y1="16.00" x2="0" y2="47.69" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.5" stop-color="#E6E6E6"/><stop offset="0.55" stop-color="#A8A8A8"/><stop offset="1" stop-color="#F2F2F2"/></linearGradient><linearGradient id="favZ" x1="32.04" y1="0" x2="49.90" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#E02424"/><stop offset="0.45" stop-color="#E02424"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>
+  </defs>
+  <g transform="scale(0.125)">
+    <g id="favBadge">
+      <path d="M510.5 256C510.5 396.556 396.556 510.5 256 510.5C115.444 510.5 1.5 396.556 1.5 256C1.5 115.444 115.444 1.5 256 1.5C396.556 1.5 510.5 115.444 510.5 256Z" fill="url(#ring)" stroke="#8E1010" stroke-width="3"/>
+      <g transform="translate(34 34)"><path d="M443 222C443 344.055 344.055 443 222 443C99.9451 443 1 344.055 1 222C1 99.9451 99.9451 1 222 1C344.055 1 443 99.9451 443 222Z" fill="#050505" stroke="#B01818" stroke-width="2"/></g>
+    </g>
+  </g>
+  <path fill="url(#favSilver)" d="M16.052 41.168 19.692 22.968H25.828L23.15 36.41H31.366L30.404 41.168Z"/><path fill="url(#favZ)" d="M31.444000000000003 41.168 32.198 37.397999999999996 42.286 27.726H34.382000000000005L35.344 22.968H51.385999999999996L50.632000000000005 26.738L40.544 36.41H49.124L48.162000000000006 41.168Z"/>
+</svg>
