@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { LoginForm } from "@/components/login-form";
+import { FormSkeleton } from "@/components/skeletons";
 import { safeNextPath } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
 
@@ -49,7 +50,7 @@ export default function LoginPage({
       <p className="mt-2 text-sm leading-6 text-muted">
         Корзина и заказ доступны после входа.
       </p>
-      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка…</p>}>
+      <Suspense fallback={<FormSkeleton />}>
         <LoginContent searchParams={searchParams} />
       </Suspense>
     </main>

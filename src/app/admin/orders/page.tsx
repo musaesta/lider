@@ -1,5 +1,7 @@
-import Link from "next/link";
 import { connection } from "next/server";
+import { Suspense } from "react";
+import { PendingLink } from "@/components/pending-link";
+import { AdminListSkeleton } from "@/components/skeletons";
 import { listAdminOrders } from "@/lib/admin/queries";
 import { formatPrice } from "@/lib/catalog/format";
 import {
@@ -8,7 +10,7 @@ import {
   paymentStatusLabel,
 } from "@/lib/orders/labels";
 
-export default async function AdminOrdersPage() {
+async function AdminOrdersContent() {
   await connection();
   const { orders, error } = await listAdminOrders();
 
@@ -30,7 +32,7 @@ export default async function AdminOrdersPage() {
         <ul className="mt-8 space-y-3">
           {orders.map((order) => (
             <li key={order.id}>
-              <Link
+              <PendingLink
                 className="block rounded-2xl border border-line bg-surface p-4 hover:border-accent/40"
                 href={`/admin/orders/${order.id}`}
               >
@@ -42,11 +44,19 @@ export default async function AdminOrdersPage() {
                   {order.contactName} · {formatOrderDate(order.createdAt)} ·{" "}
                   {orderStatusLabel(order.status)} · {paymentStatusLabel(order.paymentStatus)}
                 </p>
-              </Link>
+              </PendingLink>
             </li>
           ))}
         </ul>
       )}
     </section>
+  );
+}
+
+export default function AdminOrdersPage() {
+  return (
+    <Suspense fallback={<AdminListSkeleton />}>
+      <AdminOrdersContent />
+    </Suspense>
   );
 }

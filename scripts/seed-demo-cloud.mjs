@@ -6,6 +6,7 @@ import {
   readCloudKeys,
   readLinkedProjectRef,
 } from "./cloud-supabase.mjs";
+import { DEMO_USERS } from "./demo-accounts.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 
@@ -59,24 +60,7 @@ for (const fileName of readdirSync(typeDir).filter((name) => name.endsWith(".jpg
   console.log(`uploaded ${objectPath}`);
 }
 
-console.log("4/4 покупатель и сотрудник");
-
-const DEMO_USERS = [
-  {
-    email: "shop-buyer@lider.local",
-    password: "ShopTest123",
-    role: "customer",
-    displayName: "Муса",
-    phone: "+79000000000",
-  },
-  {
-    email: "shop-staff@lider.local",
-    password: "ShopStaff123",
-    role: "operator",
-    displayName: "Сотрудник",
-    phone: "+79000000001",
-  },
-];
+console.log("4/4 покупатель, сотрудник и админ");
 
 async function findUserByEmail(email) {
   let page = 1;

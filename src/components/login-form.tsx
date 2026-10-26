@@ -13,13 +13,13 @@ export function LoginForm({ nextPath = "/" }: { nextPath?: string }) {
     <form action={action} className="mt-8 flex flex-col gap-4">
       <input name="next" type="hidden" value={nextPath} />
       <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">
-        Email
+        Логин или email
         <input
-          autoComplete="email"
+          autoComplete="username"
           className="rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-normal text-ink outline-none ring-accent/25 focus:border-accent focus:ring-4"
           name="email"
           required
-          type="email"
+          type="text"
         />
       </label>
       <label className="flex flex-col gap-1.5 text-sm font-medium text-ink-soft">

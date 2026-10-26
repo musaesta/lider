@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ProductPhoto } from "@/components/product-photo";
+import { AccountListSkeleton } from "@/components/skeletons";
 import { loginHref } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
 import { formatPrice } from "@/lib/catalog/format";
@@ -132,7 +133,7 @@ export default function CartPage() {
       <h1 className="text-3xl font-black tracking-tight text-ink">
         Корзина
       </h1>
-      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка корзины…</p>}>
+      <Suspense fallback={<AccountListSkeleton />}>
         <CartContent />
       </Suspense>
     </main>

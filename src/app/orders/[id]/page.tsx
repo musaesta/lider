@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
+import { AdminDetailSkeleton } from "@/components/skeletons";
 import { loginHref } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
 import { formatPrice } from "@/lib/catalog/format";
@@ -149,7 +150,7 @@ export default function OrderDetailsPage({
       >
         Назад к заказам
       </Link>
-      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка заказа…</p>}>
+      <Suspense fallback={<div className="mt-10"><AdminDetailSkeleton /></div>}>
         <OrderDetailsContent params={params} />
       </Suspense>
     </main>

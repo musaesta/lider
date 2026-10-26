@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { adminButtonClass, adminFieldClass } from "@/components/admin-fields";
+import { PendingLink } from "@/components/pending-link";
+import { AdminListSkeleton } from "@/components/skeletons";
 import { formatPrice } from "@/lib/catalog/format";
 import {
   ADMIN_PRODUCT_PAGE_SIZE,
@@ -50,7 +52,7 @@ async function AdminProductsContent({
         {statusTabs.map((tab) => {
           const active = filters.status === tab.status;
           return (
-            <Link
+            <PendingLink
               className={
                 active
                   ? "rounded-full bg-accent transition-colors hover:bg-accent-hover px-3 py-1.5 text-sm font-medium text-white"
@@ -60,7 +62,7 @@ async function AdminProductsContent({
               key={tab.status}
             >
               {tab.label}
-            </Link>
+            </PendingLink>
           );
         })}
       </div>
@@ -110,10 +112,9 @@ async function AdminProductsContent({
         <ul className="mt-8 space-y-3">
           {products.map((product) => (
             <li key={product.id}>
-              <Link
+              <PendingLink
                 className="block rounded-2xl border border-line bg-surface p-4 hover:border-accent/40"
                 href={`/admin/products/${product.id}`}
-                prefetch={false}
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <p className="font-semibold text-ink">{product.name}</p>
@@ -126,7 +127,7 @@ async function AdminProductsContent({
                     {product.sku}
                   </span>
                 </p>
-              </Link>
+              </PendingLink>
             </li>
           ))}
         </ul>
@@ -142,23 +143,23 @@ async function AdminProductsContent({
           {pageCount > 1 ? (
             <div className="flex flex-wrap items-center gap-2">
               {page > 1 ? (
-                <Link
-                  className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
-                  href={adminProductsHref(filters, page - 1)}
-                >
-                  Назад
-                </Link>
+                  <PendingLink
+                    className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
+                    href={adminProductsHref(filters, page - 1)}
+                  >
+                    Назад
+                  </PendingLink>
               ) : null}
               <span className="text-sm text-muted">
                 {page} из {pageCount}
               </span>
               {page < pageCount ? (
-                <Link
-                  className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
-                  href={adminProductsHref(filters, page + 1)}
-                >
-                  Дальше
-                </Link>
+                  <PendingLink
+                    className="rounded-xl border border-line px-3 py-2 text-sm font-medium text-ink-soft hover:border-accent/40"
+                    href={adminProductsHref(filters, page + 1)}
+                  >
+                    Дальше
+                  </PendingLink>
               ) : null}
             </div>
           ) : null}
@@ -183,14 +184,14 @@ export default function AdminProductsPage({
             на витрине — после кнопки «Выложить».
           </p>
         </div>
-        <Link
+        <PendingLink
           className="rounded-full bg-accent transition-colors hover:bg-accent-hover px-4 py-2 text-sm font-medium text-white"
           href="/admin/products/new"
         >
           Новый товар
-        </Link>
+        </PendingLink>
       </div>
-      <Suspense fallback={<p className="mt-8 text-sm text-muted">Загрузка товаров…</p>}>
+      <Suspense fallback={<div className="mt-8"><AdminListSkeleton /></div>}>
         <AdminProductsContent searchParams={searchParams} />
       </Suspense>
     </section>

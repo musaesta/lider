@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { usePathname } from "next/navigation";
+import { PendingLink } from "@/components/pending-link";
 
 const links = [
   { href: "/admin/orders", label: "Заказы" },
@@ -9,18 +12,27 @@ const links = [
 ];
 
 export function AdminNav() {
+  const pathname = usePathname();
+
   return (
     <nav className="flex flex-wrap gap-2">
-      {links.map((link) => (
-        <Link
-          className="rounded-full bg-surface px-3 py-1.5 text-sm font-medium text-muted ring-1 ring-line hover:bg-canvas"
-          href={link.href}
-          key={link.href}
-          prefetch={false}
-        >
-          {link.label}
-        </Link>
-      ))}
+      {links.map((link) => {
+        const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+
+        return (
+          <PendingLink
+            className={
+              active
+                ? "rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-white"
+                : "rounded-full bg-surface px-3 py-1.5 text-sm font-medium text-muted ring-1 ring-line hover:bg-canvas"
+            }
+            href={link.href}
+            key={link.href}
+          >
+            {link.label}
+          </PendingLink>
+        );
+      })}
     </nav>
   );
 }

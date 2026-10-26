@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { resolveLoginIdentifier } from "@/lib/auth/login-id";
 import { safeNextPath } from "@/lib/auth/paths";
 import { createClient } from "@/lib/supabase/server";
 
@@ -18,7 +19,7 @@ function mapAuthError(message: string) {
   const lower = message.toLowerCase();
 
   if (lower.includes("invalid login")) {
-    return "Неверный email или пароль.";
+    return "Неверный логин или пароль.";
   }
 
   if (lower.includes("already registered") || lower.includes("already been registered")) {
@@ -40,11 +41,11 @@ export async function signIn(
   _prev: AuthFormState,
   formData: FormData,
 ): Promise<AuthFormState> {
-  const email = readField(formData, "email");
+  const email = resolveLoginIdentifier(readField(formData, "email"));
   const password = readField(formData, "password");
 
   if (!email || !password) {
-    return { error: "Укажите email и пароль.", info: null };
+    return { error: "Укажите логин и пароль.", info: null };
   }
 
   const supabase = await createClient();
@@ -59,7 +60,26 @@ export async function signIn(
     return { error: mapAuthError(error.message), info: null };
   }
 
-  redirect(safeNextPath(readField(formData, "next")));
+  const nextPath = safeNextPath(readField(formData, "next"));
+
+  if (nextPath === "/") {
+    const { data: userData } = await supabase.auth.getUser();
+    const userId = userData.user?.id;
+
+    if (userId) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", userId)
+        .maybeSingle();
+
+      if (profile?.role === "operator" || profile?.role === "admin") {
+        redirect("/admin/orders");
+      }
+    }
+  }
+
+  redirect(nextPath);
 }
 
 export async function signUp(

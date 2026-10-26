@@ -1,21 +1,5 @@
+import { DEMO_USERS } from "./demo-accounts.mjs";
 import { applyLocalSql, createLocalServiceClient } from "./local-supabase.mjs";
-
-const DEMO_USERS = [
-  {
-    email: "shop-buyer@lider.local",
-    password: "ShopTest123",
-    role: "customer",
-    displayName: "Муса",
-    phone: "+79000000000",
-  },
-  {
-    email: "shop-staff@lider.local",
-    password: "ShopStaff123",
-    role: "operator",
-    displayName: "Сотрудник",
-    phone: "+79000000001",
-  },
-];
 
 const BUYER_ADDRESS_ID = "c6000000-0000-4000-8000-000000000001";
 
@@ -133,4 +117,6 @@ set
   address_line1 = excluded.address_line1;
 `);
 
-console.log("demo users ready: shop-buyer@lider.local, shop-staff@lider.local");
+console.log(
+  "demo users ready: shop-buyer@lider.local, shop-staff@lider.local, admin@lider.local (логин admin)",
+);

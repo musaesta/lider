@@ -1,9 +1,13 @@
+import { connection } from "next/server";
+import { Suspense } from "react";
 import { adminFieldClass } from "@/components/admin-fields";
 import { AdminNamedForm } from "@/components/admin-named-form";
+import { AdminListSkeleton } from "@/components/skeletons";
 import { createCategory } from "@/lib/admin/catalog-actions";
 import { listAdminCategories } from "@/lib/admin/queries";
 
-export default async function AdminCategoriesPage() {
+async function AdminCategoriesContent() {
+  await connection();
   const { categories, error } = await listAdminCategories();
 
   return (
@@ -36,5 +40,13 @@ export default async function AdminCategoriesPage() {
         submitLabel="Добавить категорию"
       />
     </section>
+  );
+}
+
+export default function AdminCategoriesPage() {
+  return (
+    <Suspense fallback={<AdminListSkeleton />}>
+      <AdminCategoriesContent />
+    </Suspense>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { CheckoutForm } from "@/components/checkout-form";
+import { AccountListSkeleton } from "@/components/skeletons";
 import { listMyAddresses } from "@/lib/account/addresses";
 import { loginHref } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
@@ -104,7 +105,7 @@ export default function CheckoutPage() {
       <p className="mt-2 text-sm text-muted">
         Оплата не списывается. Заказ создаётся со статусом «ожидает оплаты».
       </p>
-      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка оформления…</p>}>
+      <Suspense fallback={<AccountListSkeleton />}>
         <CheckoutContent />
       </Suspense>
     </main>

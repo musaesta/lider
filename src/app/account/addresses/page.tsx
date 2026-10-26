@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { AccountListSkeleton } from "@/components/skeletons";
 import { deleteAddress } from "@/lib/account/address-actions";
 import { formatAddress, listMyAddresses } from "@/lib/account/addresses";
 import { loginHref } from "@/lib/auth/paths";
@@ -79,7 +80,7 @@ export default function AddressesPage() {
           Добавить адрес
         </Link>
       </div>
-      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка адресов…</p>}>
+      <Suspense fallback={<AccountListSkeleton />}>
         <AddressesContent />
       </Suspense>
     </main>

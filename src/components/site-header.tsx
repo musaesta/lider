@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { AdminLink } from "@/components/admin-link";
 import { AuthControls } from "@/components/auth-controls";
 import { CartLink } from "@/components/cart-link";
 import { drawerLinkClass } from "@/components/chrome";
@@ -45,9 +44,6 @@ export function SiteHeader() {
         <div className="flex items-center gap-1 sm:gap-2">
           <div className="hidden items-center gap-2 md:flex">
             <Suspense fallback={<div className="h-9 w-16 rounded-full bg-white/10" />}>
-              <AdminLink />
-            </Suspense>
-            <Suspense fallback={<div className="h-9 w-16 rounded-full bg-white/10" />}>
               <OrdersLink />
             </Suspense>
           </div>
@@ -68,9 +64,6 @@ export function SiteHeader() {
               <Link className={drawerLinkClass} href="/catalog">
                 Каталог
               </Link>
-              <Suspense fallback={null}>
-                <AdminLink variant="drawer" />
-              </Suspense>
               <Suspense fallback={null}>
                 <OrdersLink variant="drawer" />
               </Suspense>

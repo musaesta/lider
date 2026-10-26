@@ -1,8 +1,12 @@
+import { connection } from "next/server";
+import { Suspense } from "react";
 import { AdminNamedForm } from "@/components/admin-named-form";
+import { AdminListSkeleton } from "@/components/skeletons";
 import { createBrand } from "@/lib/admin/catalog-actions";
 import { listAdminBrands } from "@/lib/admin/queries";
 
-export default async function AdminBrandsPage() {
+async function AdminBrandsContent() {
+  await connection();
   const { brands, error } = await listAdminBrands();
 
   return (
@@ -25,5 +29,13 @@ export default async function AdminBrandsPage() {
       </ul>
       <AdminNamedForm action={createBrand} submitLabel="Добавить бренд" />
     </section>
+  );
+}
+
+export default function AdminBrandsPage() {
+  return (
+    <Suspense fallback={<AdminListSkeleton />}>
+      <AdminBrandsContent />
+    </Suspense>
   );
 }

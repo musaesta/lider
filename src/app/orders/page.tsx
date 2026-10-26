@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { AccountListSkeleton } from "@/components/skeletons";
 import { loginHref } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
 import { formatPrice } from "@/lib/catalog/format";
@@ -73,7 +74,7 @@ export default function OrdersPage() {
       <p className="mt-2 text-sm text-muted">
         Здесь только ваши заказы. Оплата и статусы склада появятся позже.
       </p>
-      <Suspense fallback={<p className="mt-10 text-sm text-muted">Загрузка заказов…</p>}>
+      <Suspense fallback={<AccountListSkeleton />}>
         <OrdersContent />
       </Suspense>
     </main>

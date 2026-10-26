@@ -35,7 +35,7 @@ export async function getStaffViewer(): Promise<StaffViewer | null> {
 }
 
 export async function requireStaffAction(
-  nextPath = "/admin",
+  nextPath = "/admin/orders",
 ): Promise<StaffViewer> {
   const viewer = await getAuthViewer();
 

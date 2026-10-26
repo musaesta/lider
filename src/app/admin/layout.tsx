@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 import { AdminNav } from "@/components/admin-nav";
+import { AdminChromeSkeleton } from "@/components/skeletons";
 import { loginHref } from "@/lib/auth/paths";
 import { getAuthViewer } from "@/lib/auth/session";
 import { getStaffViewer } from "@/lib/auth/staff";
@@ -10,7 +11,7 @@ async function AdminShell({ children }: { children: ReactNode }) {
   const viewer = await getAuthViewer();
 
   if (!viewer) {
-    redirect(loginHref("/admin"));
+    redirect(loginHref("/admin/orders"));
   }
 
   const staff = await getStaffViewer();
@@ -52,7 +53,7 @@ async function AdminShell({ children }: { children: ReactNode }) {
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <Suspense fallback={<p className="px-6 py-16 text-sm text-muted">Загрузка админки…</p>}>
+    <Suspense fallback={<AdminChromeSkeleton />}>
       <AdminShell>{children}</AdminShell>
     </Suspense>
   );

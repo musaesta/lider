@@ -77,3 +77,84 @@ export function ProductSkeleton() {
     </div>
   );
 }
+
+export function AdminListSkeleton({ rows = 6 }: { rows?: number }) {
+  return (
+    <div aria-busy="true" aria-live="polite" role="status">
+      <span className="sr-only">Загрузка раздела</span>
+      <Bone className="h-7 w-40" />
+      <Bone className="mt-2 h-4 w-72 max-w-full" />
+      <ul className="mt-8 space-y-3">
+        {Array.from({ length: rows }, (_, index) => (
+          <li className="rounded-2xl border border-line bg-surface p-4" key={index}>
+            <div className="flex items-baseline justify-between gap-4">
+              <Bone className="h-5 w-1/3" />
+              <Bone className="h-4 w-16" />
+            </div>
+            <Bone className="mt-3 h-4 w-2/3" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function AdminDetailSkeleton() {
+  return (
+    <div aria-busy="true" aria-live="polite" className="space-y-8" role="status">
+      <span className="sr-only">Загрузка карточки</span>
+      <Bone className="h-4 w-36" />
+      <Bone className="h-7 w-2/3 max-w-md" />
+      <Bone className="h-4 w-48" />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Bone className="h-24 w-full rounded-2xl" />
+        <Bone className="h-24 w-full rounded-2xl" />
+      </div>
+      <Bone className="h-40 w-full rounded-2xl" />
+    </div>
+  );
+}
+
+export function AdminChromeSkeleton() {
+  return (
+    <div className="mx-auto w-full max-w-6xl flex-1 px-6 py-12 sm:px-10">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <Bone className="h-3 w-28" />
+          <Bone className="mt-2 h-8 w-40" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {Array.from({ length: 5 }, (_, index) => (
+            <Bone className="h-9 w-20 rounded-full" key={index} />
+          ))}
+        </div>
+      </div>
+      <AdminListSkeleton />
+    </div>
+  );
+}
+
+export function AccountListSkeleton() {
+  return (
+    <div aria-busy="true" aria-live="polite" className="mt-10 space-y-4" role="status">
+      <span className="sr-only">Загрузка</span>
+      {Array.from({ length: 3 }, (_, index) => (
+        <div className="rounded-2xl border border-line bg-surface p-4" key={index}>
+          <Bone className="h-5 w-1/2" />
+          <Bone className="mt-3 h-4 w-3/4" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function FormSkeleton() {
+  return (
+    <div aria-busy="true" aria-live="polite" className="mt-8 space-y-4" role="status">
+      <span className="sr-only">Загрузка формы</span>
+      <Bone className="h-10 w-full" />
+      <Bone className="h-10 w-full" />
+      <Bone className="h-11 w-32" />
+    </div>
+  );
+}

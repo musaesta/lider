@@ -1,7 +1,11 @@
+import { connection } from "next/server";
+import { Suspense } from "react";
 import { AdminVehicleForm } from "@/components/admin-vehicle-form";
+import { AdminListSkeleton } from "@/components/skeletons";
 import { listAdminVehicles, vehicleLabel } from "@/lib/admin/queries";
 
-export default async function AdminVehiclesPage() {
+async function AdminVehiclesContent() {
+  await connection();
   const { vehicles, error } = await listAdminVehicles();
 
   return (
@@ -24,5 +28,13 @@ export default async function AdminVehiclesPage() {
       </ul>
       <AdminVehicleForm />
     </section>
+  );
+}
+
+export default function AdminVehiclesPage() {
+  return (
+    <Suspense fallback={<AdminListSkeleton />}>
+      <AdminVehiclesContent />
+    </Suspense>
   );
 }
